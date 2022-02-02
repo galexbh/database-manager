@@ -14,8 +14,6 @@ UNAH (Autonomous University of Honduras). Project for the **Database I** class.
 
 * **Gabriel Alexander Barrientos** - *20181000058* - [galexbh](https://github.com/galexbh)
 
-* **Kevin David Hernández Rivera** - *20181001565*
-
 * **Jorge Roberto Orellana Romero** - *20161001150*
 
 * **Reyner Dashiel Rodriguez Oviedo** - *20091000973*
