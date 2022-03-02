@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: MsSQLServer
+    ports:
+      - 1433:1433
+    environment:
+        ACCEPT_EULA: ${EULA}
+        MSSQL_SA_PASSWORD: ${MS_PASSWORD}
+    volumes:
+      - data-us:/var/opt/mssql
+
+volumes:
+    data-us:
+        driver: local
