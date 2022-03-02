@@ -6,4 +6,6 @@ out
 .gradle
 # Ignore predetermined project configuration
 .idea
+# Ignoring construction variables
+.env
 
