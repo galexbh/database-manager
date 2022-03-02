@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: MySQL
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MY_DATABASE}
+      MYSQL_USER: ${MY_USER}
+      MYSQL_PASSWORD: ${MY_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MY_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - data-us:/var/lib/mysql
+
+volumes:
+    data-us:
+        driver: local

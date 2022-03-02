@@ -9,6 +9,13 @@ public class MainController {
 
     @FXML
     protected void onHelloButtonClick() {
+
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
 }
+
+/* *
+DBAdapter dbAdapter = DBFactory.getDBAdapter(DBFactory.DBType.MSSQL);
+Connection connection = dbAdapter.getConnection();
+* */
