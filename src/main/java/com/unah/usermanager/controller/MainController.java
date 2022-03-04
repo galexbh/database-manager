@@ -19,16 +19,21 @@ public class MainController implements Initializable {
     private StackPane spContainer;
 
     @FXML
-    private VBox vbConfig;
+    private VBox vbConfig, vbAbout;
 
     @FXML
-    private Button btnConfig;
+    private Button btnConfig,btnAbout;
 
     @FXML
     void onChangeView(ActionEvent event) {
         Object evt = event.getSource();
         if (evt.equals(btnConfig)) {
             vbConfig.setVisible(true);
+            vbAbout.setVisible(false);
+        }
+        if (evt.equals(btnAbout)) {
+            vbAbout.setVisible(true);
+            vbConfig.setVisible(false);
         }
     }
 
@@ -36,10 +41,13 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-            FXMLLoader loader = loadForm("/com/unah/usermanager/config-view.fxml");
-            vbConfig = loader.load();
-            spContainer.getChildren().addAll(vbConfig);
+            FXMLLoader ldConfig = loadForm("/com/unah/usermanager/config-view.fxml");
+            FXMLLoader ldAbout = loadForm("/com/unah/usermanager/about-view.fxml");
+            vbConfig = ldConfig.load();
+            vbAbout = ldAbout.load();
+            spContainer.getChildren().addAll(vbConfig,vbAbout);
             vbConfig.setVisible(false);
+            vbAbout.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
