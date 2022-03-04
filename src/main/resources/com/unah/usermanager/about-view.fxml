@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.AboutController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17">
    <Label text="User Manager">
       <font>
          <Font name="JetBrains Mono ExtraBold ExtBd Nerd Font Complete" size="38.0" />
