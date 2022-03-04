@@ -1,6 +1,7 @@
 package com.unah.usermanager.utils;
 
 import com.unah.usermanager.utils.interfaces.DBAdapter;
+import javafx.scene.control.Alert;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -9,31 +10,35 @@ import java.sql.SQLException;
 
 public class PostgreSQLAdapter implements DBAdapter {
     @Override
-    public Connection getConnection(){
+    public Connection getConnection() {
+
+        Alert alert = new Alert(Alert.AlertType.NONE);
         Connection connection = null;
 
         try {
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
 
-            connection = DriverManager.
-                    getConnection("jdbc:postgresql://localhost:5438/mydb?" +
-                            "user=galex&password=mssql1Ipw");
+            connection = DBUtils.getConnection(DBType.PostgreSQL);
 
-            System.out.println("Conecto");
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("Connection established");
+            alert.show();
 
-        } catch (SQLException |
+        } catch (
                 InvocationTargetException |
-                ClassNotFoundException |
-                InstantiationException |
-                IllegalAccessException |
-                NoSuchMethodException e) {
+                        ClassNotFoundException |
+                        InstantiationException |
+                        IllegalAccessException |
+                        NoSuchMethodException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            DBUtils.processException(e);
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    DBUtils.processException(e);
                 }
             }
         }
