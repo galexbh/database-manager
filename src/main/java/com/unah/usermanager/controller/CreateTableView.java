@@ -15,7 +15,7 @@ public class CreateTableView {
     @FXML
     private void addField(){
 
-        TextField textField = new TextField();
+        Pane paneField = new Pane();
         textField.setPrefWidth(200);
         textField.setPrefHeight(30);
         int tempPositionY = 30;
