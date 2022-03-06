@@ -33,7 +33,7 @@ public class PostgreSQLAdapter implements DBAdapter {
             e.printStackTrace();
         } catch (SQLException e) {
             DBUtils.processException(e);
-        } finally {
+        } /*finally {
             if (connection != null) {
                 try {
                     connection.close();
@@ -41,7 +41,7 @@ public class PostgreSQLAdapter implements DBAdapter {
                     DBUtils.processException(e);
                 }
             }
-        }
+        }*/
 
         return connection;
     }

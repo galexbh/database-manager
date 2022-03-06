@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class DBUtils {
     static Alert alert = new Alert(Alert.AlertType.NONE);
-    private static String MYSQL_CONNECTION = "";
+    private static String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/galex_db?" + "user=root&password=S3cret";
     private static String MSSQL_CONNECTION = "";
     private static String POSTGRESQL_CONNECTION = "";
 

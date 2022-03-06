@@ -33,14 +33,6 @@ public class MySQLAdapter implements DBAdapter {
             e.printStackTrace();
         } catch (SQLException e) {
             DBUtils.processException(e);
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    DBUtils.processException(e);
-                }
-            }
         }
 
         return connection;
