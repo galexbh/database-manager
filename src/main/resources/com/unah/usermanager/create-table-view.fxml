@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.CreateTableView">
    <children>
-      <Button layoutX="608.0" layoutY="193.0" mnemonicParsing="false" onAction="#addField" prefHeight="25.0" prefWidth="53.0" text="+" />
-      <TextField layoutX="608.0" layoutY="136.0" promptText="Nombre de la tabla" />
-      <Button layoutX="704.0" layoutY="193.0" mnemonicParsing="false" onAction="#removeField" prefHeight="25.0" prefWidth="53.0" text="-" />
-      <Button layoutX="608.0" layoutY="252.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Crear" />
-      <Button layoutX="608.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Cancelar" />
+      <Button layoutX="629.0" layoutY="193.0" mnemonicParsing="false" onAction="#addField" prefHeight="25.0" prefWidth="53.0" text="+" />
+      <TextField layoutX="629.0" layoutY="136.0" promptText="Nombre de la tabla" />
+      <Button layoutX="725.0" layoutY="193.0" mnemonicParsing="false" onAction="#removeField" prefHeight="25.0" prefWidth="53.0" text="-" />
+      <Button fx:id="aa" layoutX="629.0" layoutY="252.0" mnemonicParsing="false" onAction="#createTable" prefHeight="25.0" prefWidth="149.0" text="Crear" />
+      <Button fx:id="aa" layoutX="629.0" layoutY="298.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Cancelar" />
       <Label alignment="CENTER" layoutX="257.0" layoutY="77.0" prefHeight="17.0" prefWidth="287.0" text="Creación de tablas" textAlignment="CENTER" />
-      <Pane fx:id="tableParent" layoutX="58.0" layoutY="136.0" prefHeight="600.0" prefWidth="500.0" />
+      <Pane fx:id="tableParent" layoutX="16.0" layoutY="136.0" prefHeight="600.0" prefWidth="600.0" />
    </children>
 </AnchorPane>
