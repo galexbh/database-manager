@@ -1,6 +1,7 @@
 package com.unah.usermanager.utils;
 
 import com.unah.usermanager.utils.interfaces.DBAdapter;
+import javafx.scene.control.Alert;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
@@ -10,41 +11,30 @@ import java.util.Properties;
 
 public class MSSQLAdapter implements DBAdapter {
     @Override
-    public Connection getConnection(){
+    public Connection getConnection() {
+
+        Alert alert = new Alert(Alert.AlertType.NONE);
         Connection connection = null;
 
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").getDeclaredConstructor().newInstance();
 
-            String hostname = "localhost";
-            String sqlInstanceName = ""; //computer name
-            String sqlDatabase = "";  //sql server database name
-            String sqlUser = "sa";
-            String sqlPassword = ""; //passwrod sa account
+            connection = DBUtils.getConnection(DBType.MSSQL);
 
-            String connectURL = "jdbc:sqlserver://" + hostname + ":1433"
-                    + ";instance=" + sqlInstanceName + ";databaseName=" + sqlDatabase;
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("Connection established");
+            alert.show();
 
-            connection = DriverManager.getConnection(connectURL, sqlUser, sqlPassword);
-
-            System.out.println("Conecto");
-
-        } catch (SQLException |
+        } catch (
                 InvocationTargetException |
-                ClassNotFoundException |
-                InstantiationException |
-                IllegalAccessException |
-                NoSuchMethodException e) {
+                        ClassNotFoundException |
+                        InstantiationException |
+                        IllegalAccessException |
+                        NoSuchMethodException e) {
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        } catch (SQLException e) {
+            DBUtils.processException(e);
+        } 
 
         return connection;
     }

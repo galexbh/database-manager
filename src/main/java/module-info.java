@@ -12,4 +12,5 @@ module com.unah.usermanager {
     exports com.unah.usermanager;
     exports com.unah.usermanager.controller;
     opens com.unah.usermanager.controller to javafx.fxml;
+    opens com.unah.usermanager.model;
 }

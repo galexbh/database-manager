@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17">
+   <Label text="User Manager">
+      <font>
+         <Font name="JetBrains Mono ExtraBold ExtBd Nerd Font Complete" size="38.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin>
+   </Label>
+   <Label text="Created by">
+      <font>
+         <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="18.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="10.0" />
+      </VBox.margin>
+   </Label>
+   <Label text="Gabriel Barrientos">
+      <font>
+         <Font name="JetBrains Mono Medium Nerd Font Complete Mono" size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin>
+   </Label>
+   <Label layoutX="254.0" layoutY="322.0" text="Andy Avelar">
+      <font>
+         <Font name="JetBrains Mono Medium Nerd Font Complete Mono" size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin>
+   </Label>
+   <Label alignment="CENTER" layoutX="274.0" layoutY="332.0" text="Francisco Cáceres" textAlignment="CENTER">
+      <font>
+         <Font name="JetBrains Mono Medium Nerd Font Complete Mono" size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin>
+   </Label>
+   <Label layoutX="256.0" layoutY="341.0" text="Jorge Orellana">
+      <font>
+         <Font name="JetBrains Mono Medium Nerd Font Complete Mono" size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin>
+   </Label>
+   <Label layoutX="266.0" layoutY="351.0" text="Reyner Rodriguez">
+      <font>
+         <Font name="JetBrains Mono Medium Nerd Font Complete Mono" size="16.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="5.0" />
+      </VBox.margin>
+   </Label>
+</VBox>
