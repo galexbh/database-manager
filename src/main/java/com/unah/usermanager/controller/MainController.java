@@ -21,6 +21,7 @@ public class MainController implements Initializable {
     @FXML
     private VBox vbConfig, vbAbout;
 
+
     @FXML
     private Button btnConfig,btnAbout;
 
@@ -35,6 +36,7 @@ public class MainController implements Initializable {
             vbAbout.setVisible(true);
             vbConfig.setVisible(false);
         }
+
     }
 
     @Override
