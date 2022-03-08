@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.AddUserController">
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User" />
+   <TextField fx:id="txfUser" alignment="CENTER" prefHeight="28.0" prefWidth="361.0">
+      <VBox.margin>
+         <Insets left="20.0" right="20.0" top="10.0" />
+      </VBox.margin>
+   </TextField>
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <VBox.margin>
+         <Insets top="10.0" />
+      </VBox.margin>
+   </Text>
+   <TextField fx:id="txfPassword" alignment="CENTER" prefHeight="28.0" prefWidth="361.0">
+      <VBox.margin>
+         <Insets left="20.0" right="20.0" top="10.0" />
+      </VBox.margin>
+   </TextField>
+   <Button mnemonicParsing="false" onAction="#onAddUser" prefHeight="33.0" prefWidth="361.0" text="Add User">
+      <VBox.margin>
+         <Insets left="20.0" right="20.0" top="35.0" />
+      </VBox.margin>
+   </Button>
+</VBox>

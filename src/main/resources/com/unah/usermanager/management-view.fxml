@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.ManagementController">
+    <ComboBox fx:id="cbxDBType" prefWidth="150.0">
+        <VBox.margin>
+          <Insets bottom="30.0"/>
+        </VBox.margin>
+    </ComboBox>
+    <HBox fx:id="hbxContTable" alignment="CENTER" prefHeight="173.0" prefWidth="600.0">
+        <TableView fx:id="tableUser" prefHeight="174.0" prefWidth="614.0">
+            <columns>
+                <TableColumn fx:id="colName" prefWidth="108.89254826307297" text="User_name"/>
+                <TableColumn fx:id="colSelect" prefWidth="85.91522216796875" text="Select_priv"/>
+                <TableColumn fx:id="colInsert" prefWidth="75.0" text="Intert_priv"/>
+                <TableColumn fx:id="colUpdate" prefWidth="84.916259765625" text="Update_priv"/>
+                <TableColumn fx:id="colDelete" prefWidth="84.91619873046875" text="Delete_priv"/>
+                <TableColumn fx:id="colCreate" prefWidth="92.90829467773438" text="Create_priv"/>
+                <TableColumn fx:id="colDrop" prefWidth="78.92216189841997" text="Drop_priv"/>
+            </columns>
+        </TableView>
+    </HBox>
+    <HBox alignment="CENTER" prefHeight="125.0" prefWidth="652.0">
+        <Button mnemonicParsing="false" onAction="#onGetUsers" prefHeight="29.0" prefWidth="114.0" text="Refresh"/>
+        <Button mnemonicParsing="false" onAction="#onChangePrivileges" prefHeight="29.0" prefWidth="114.0"
+                text="Privileges">
+            <HBox.margin>
+                <Insets left="20.0"/>
+            </HBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#onAddUser" prefHeight="29.0" prefWidth="114.0" text="Add">
+            <HBox.margin>
+                <Insets left="20.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+</VBox>

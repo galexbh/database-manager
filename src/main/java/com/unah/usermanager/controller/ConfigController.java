@@ -48,15 +48,11 @@ public class ConfigController implements Initializable {
     void onTestConnection(ActionEvent event) {
 
         switch (cbxSGBD.getValue()) {
-            case MySQL: {
-                DBUtils.setMySQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
-            }
-            case MSSQL: {
-                DBUtils.setMSSQLString(txfPort.getText(), txfInstance.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
-            }
-            case PostgreSQL: {
-                DBUtils.setPostgreSQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
-            }
+            case MySQL -> DBUtils.setMySQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
+
+            case MSSQL -> DBUtils.setMSSQLString(txfPort.getText(), txfInstance.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
+
+            case PostgreSQL -> DBUtils.setPostgreSQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
         }
 
         DBAdapter dbAdapter = DBFactory.getDBAdapter(cbxSGBD.getValue());
@@ -75,11 +71,7 @@ public class ConfigController implements Initializable {
 
         Object evt = actionEvent.getSource();
         if (evt.equals(cbxSGBD)) {
-            if (cbxSGBD.getValue() == DBType.MSSQL) {
-                txfInstance.setDisable(false);
-            } else {
-                txfInstance.setDisable(true);
-            }
+            txfInstance.setDisable(cbxSGBD.getValue() != DBType.MSSQL);
         }
     }
 }
