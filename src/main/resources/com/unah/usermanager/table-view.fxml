@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.TableViewController">
+   <children>
+      <Label layoutX="386.0" layoutY="37.0" text="tabla" />
+      <TableView fx:id="tableResult" layoutX="14.0" layoutY="78.0" prefHeight="680.0" prefWidth="687.0" />
+      <Button layoutX="807.0" layoutY="145.0" mnemonicParsing="false" text="Crear" />
+      <Button layoutX="800.0" layoutY="188.0" mnemonicParsing="false" text="Eliminar" />
+      <Button layoutX="795.0" layoutY="226.0" mnemonicParsing="false" text="Actualizar" />
+      <ComboBox layoutX="771.0" layoutY="78.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

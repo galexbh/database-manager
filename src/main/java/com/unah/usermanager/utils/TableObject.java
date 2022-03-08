@@ -2,7 +2,13 @@ package com.unah.usermanager.utils;
 
 public class TableObject {
     private String nameField;
-    private boolean isNull;
+    private String isNull;
+    private int tamField;
+    private String typeField;
+
+    public String generateField(){
+        return nameField + " " + typeField +"(" + String.valueOf(tamField) + ")" + " " + isNull;
+    }
 
     public String getNameField() {
         return nameField;
@@ -12,11 +18,11 @@ public class TableObject {
         this.nameField = nameField;
     }
 
-    public boolean isNull() {
+    public String isNull() {
         return isNull;
     }
 
-    public void setNull(boolean aNull) {
+    public void setNull(String aNull) {
         isNull = aNull;
     }
 
@@ -36,7 +42,6 @@ public class TableObject {
         this.typeField = typeField;
     }
 
-    private int tamField;
-    private String typeField;
+
 
 }
