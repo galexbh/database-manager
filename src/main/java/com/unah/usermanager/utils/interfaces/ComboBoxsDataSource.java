@@ -5,16 +5,16 @@ import javafx.collections.ObservableList;
 
 public interface ComboBoxsDataSource {
     ObservableList<String> mysqlDataType = FXCollections.observableArrayList(
-            "CHAR",
-            "VARCHAR",
-            "INTEGER",
-            "BINARY",
             "TINYINT",
             "SMALLINT",
             "MEDIUMINT",
             "BIGINT",
-            "VARBINARY",
-            "TINYBLOB",
+            "BIT",
+            "TINYINT UNSIGNED",
+            "SMALLINT UNSIGNED",
+            "MEDIUMINT UNSIGNED",
+            "INT UNSIGNED",
+            "BIGINT UNSIGNED",
             "TINYTEXT",
             "BLOB",
             "TEXT",
@@ -27,7 +27,10 @@ public interface ComboBoxsDataSource {
     ObservableList<String> mssqlDataType = FXCollections.observableArrayList(
 
     );
-    ObservableList<String> postgresqlDataType = FXCollections.observableArrayList();
+    ObservableList<String> postgresqlDataType = FXCollections.observableArrayList(
+
+
+    );
 
 
 }

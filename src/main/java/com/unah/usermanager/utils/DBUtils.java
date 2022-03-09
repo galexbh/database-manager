@@ -8,9 +8,9 @@ import java.sql.SQLException;
 
 public class DBUtils {
     static Alert alert = new Alert(Alert.AlertType.NONE);
-    private static String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/galex_db?" + "user=root&password=S3cret";
-    private static String MSSQL_CONNECTION = "";
-    private static String POSTGRESQL_CONNECTION = "";
+    private static String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/mysqlDB?user=root&password=mauFJcuf5dhRMQrjj";
+    private static String MSSQL_CONNECTION = "jdbc:sqlserver://localhost:1433\\sqlexpress;databaseName=mssqlDB;user=SA;password=mssql1Ipw";
+    private static String POSTGRESQL_CONNECTION = "jdbc:postgresql://localhost:5438/mydb?user=galex&password=mssql1Ipw";
 
     public static Connection getConnection(DBType dbType) throws SQLException {
         return switch (dbType) {

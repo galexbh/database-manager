@@ -1,7 +1,11 @@
 package com.unah.usermanager.controller;
 
+import com.unah.usermanager.utils.DBFactory;
+import com.unah.usermanager.utils.DBType;
+import com.unah.usermanager.utils.DBUtils;
 import com.unah.usermanager.utils.TableObject;
 import com.unah.usermanager.utils.interfaces.ComboBoxsDataSource;
+import com.unah.usermanager.utils.interfaces.DBAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +18,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class CreateTableView implements Initializable, ComboBoxsDataSource {
@@ -30,21 +38,18 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
     public void initialize(URL location, ResourceBundle resources) {
         tableName.setOnMouseClicked((event) -> removeBorder(tableName));
         listSGBD.setOnMouseClicked((event) -> removeBorder(listSGBD));
-        listSGBD.setItems(FXCollections.observableArrayList("MYSQL", "MSSQL", "POSTGRESQL"));
+        listSGBD.setItems(FXCollections.observableArrayList("MySQL","PostgreSQL"));
     }
 
     @FXML
     private void selectSGBD(){
 
         switch((String) listSGBD.getSelectionModel().getSelectedItem()){
-            case "MYSQL":
+            case "MySQL":
                 ComboBoxdataTypeList = mysqlDataType;
                 break;
-            case "MSSQL":
-                ComboBoxdataTypeList = FXCollections.observableArrayList("MSSQLDATO1", "MSSQLDATO2", "MSSQLDATO3");
-                break;
-            case "POSTGRESQL":
-                ComboBoxdataTypeList = FXCollections.observableArrayList("PRODATO1", "PRODATO2", "PROLDATO3");
+            case "PostgreSQL":
+                ComboBoxdataTypeList = mysqlDataType;
                 break;
             default:
                 break;
@@ -113,7 +118,6 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
             dataTypeList.setPromptText("Tipo de dato");
             dataTypeList.setLayoutX(fieldSize.getLayoutX() + fieldSize.getPrefWidth() + 20);
             dataTypeList.setId("dataTypeList");
-
             dataTypeList.setItems(ComboBoxdataTypeList);
             dataTypeList.setOnMouseClicked((event) -> removeBorder(dataTypeList));
 
@@ -206,18 +210,50 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
                 tableObject.add(field);
 
             }
-           String sqlSecuence = "CREATE TABLE" + " " + tableName.getText() + "(";
-            String auxComma = ",";
+            String primaryKey = "";
+           DBAdapter dbAdapter = null;
+            switch((String)listSGBD.getSelectionModel().getSelectedItem()){
+                case "MySQL":
+                    primaryKey = "Id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,";
+                    dbAdapter = DBFactory.getDBAdapter(DBType.MySQL);
+                    break;
+                case "PostgreSQL":
+                    primaryKey = "Id SERIAL NOT NULL PRIMARY KEY,";
+                    dbAdapter = DBFactory.getDBAdapter(DBType.PostgreSQL);
+
+                    break;
+                default:
+                    break;
+            }
+
+           String auxComma = ",";
+           String sqlSecuence = "CREATE TABLE" + " " + tableName.getText() + "("  + primaryKey;
+
           for (int i = 0; i < tableObject.size(); i++) {
                 if (i == tableObject.size() - 1){
                     auxComma = "";
                 }
-              sqlSecuence = sqlSecuence + tableObject.get(i).generateField() + auxComma;
-
+              sqlSecuence = sqlSecuence + tableObject.get(i).generateField()  + auxComma;
             }
           sqlSecuence = sqlSecuence + ")";
-          System.out.println(sqlSecuence);
+            Connection connection = dbAdapter.getConnection();
+            Statement statement = null;
+
+            try {
+                statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                statement.execute(sqlSecuence);
+
+            } catch (SQLException e) {
+                DBUtils.processException(e);
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    DBUtils.processException(e);
+                }
             }
+
+        }
     }
 
     private void generateAlert(String infoAlert, Node nodeChange){
