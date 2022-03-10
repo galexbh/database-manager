@@ -41,9 +41,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation(group: 'org.postgresql', name: 'postgresql', version: '42.3.3')
 
-    // https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
-    implementation(group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '10.2.0.jre17')
-
     implementation('org.controlsfx:controlsfx:11.1.0')
     implementation('com.dlsc.formsfx:formsfx-core:11.3.2') {
         exclude(group: 'org.openjfx')

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 public class PrivilegesMysqlController {
 
@@ -41,5 +42,8 @@ public class PrivilegesMysqlController {
     @FXML
     void onRevokePrivileges(ActionEvent event) {
 
+    }
+
+    public void onMouseEvent(MouseEvent mouseEvent) {
     }
 }

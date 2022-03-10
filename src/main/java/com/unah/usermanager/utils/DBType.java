@@ -1,5 +1,5 @@
 package com.unah.usermanager.utils;
 
 public enum DBType {
-    MySQL, MSSQL, PostgreSQL
+    MySQL, MariaDB, PostgreSQL
 }
