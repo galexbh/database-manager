@@ -38,6 +38,8 @@ public class ConfigController implements Initializable {
     @FXML
     void onTestConnection(ActionEvent event) {
 
+        dbTypeEmpty(cbxDBType.getValue());
+
         switch (cbxDBType.getValue()) {
             case MySQL -> DBUtils.setMySQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
 
@@ -54,6 +56,14 @@ public class ConfigController implements Initializable {
             alert.show();
         }
 
+    }
+
+    private void dbTypeEmpty(DBType value) {
+        if (value == null){
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Choose a database");
+            alert.show();
+        }
     }
 
     @Override

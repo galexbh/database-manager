@@ -79,7 +79,7 @@ public class ManagementController implements Initializable {
 
             case MySQL -> getUsersMySQL();
 
-            case MariaDB -> getUsersMSSQL();
+            case MariaDB -> getUsersMariaDB();
 
             case PostgreSQL -> getUsersPostgreSQL();
 
@@ -136,7 +136,7 @@ public class ManagementController implements Initializable {
 
     }
 
-    public void getUsersMSSQL() {
+    public void getUsersMariaDB() {
 
     }
 
@@ -148,7 +148,7 @@ public class ManagementController implements Initializable {
         FXMLLoader fxmlLoader = null;
 
         switch (cbxDBType.getValue()) {
-            case MySQL -> fxmlLoader = loadForm("/com/unah/usermanager/add-user-mysql-view.fxml");
+            case MySQL, MariaDB -> fxmlLoader = loadForm("/com/unah/usermanager/add-user-mysql-view.fxml");
         }
 
         Parent root = fxmlLoader.load();
