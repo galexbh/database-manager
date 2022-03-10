@@ -79,7 +79,7 @@ public class ManagementController implements Initializable {
 
             case MySQL -> getUsersMySQL();
 
-            case MSSQL -> getUsersMSSQL();
+            case MariaDB -> getUsersMSSQL();
 
             case PostgreSQL -> getUsersPostgreSQL();
 

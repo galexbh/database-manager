@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mariadb:10.8.2-rc-focal
+    container_name: MariaDB
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    ports:
+      - 3307:3306
+    volumes:
+      - data_md:/var/lib/mysql
+
+volumes:
+    data_md:
+        driver: local

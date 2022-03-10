@@ -9,13 +9,13 @@ import java.sql.SQLException;
 public class DBUtils {
     static Alert alert = new Alert(Alert.AlertType.NONE);
     private static String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/galex_db?" + "user=root&password=S3cret";
-    private static String MSSQL_CONNECTION = "";
+    private static String MARIADB_CONNECTION = "";
     private static String POSTGRESQL_CONNECTION = "";
 
     public static Connection getConnection(DBType dbType) throws SQLException {
         return switch (dbType) {
             case MySQL -> DriverManager.getConnection(MYSQL_CONNECTION);
-            case MSSQL -> DriverManager.getConnection(MSSQL_CONNECTION);
+            case MariaDB -> DriverManager.getConnection(MARIADB_CONNECTION);
             case PostgreSQL -> DriverManager.getConnection(POSTGRESQL_CONNECTION);
         };
     }
@@ -24,8 +24,8 @@ public class DBUtils {
         MYSQL_CONNECTION = "jdbc:mysql://" + server + ":" + port + "/" + db + "?" + "user=" + user + "&" + "password=" + password;
     }
 
-    public static void setMSSQLString(String port, String instance, String server, String db, String user, String password) {
-        MSSQL_CONNECTION = "jdbc:sqlserver://" + server + ":" + port + ";instance=" + instance + ";databaseName=" + db+ "userName=" + user + "password=" + password;
+    public static void setMariaDBSring(String port, String server, String db, String user, String password) {
+        MARIADB_CONNECTION = "jdbc:mysql://" + server + ":" + port + "/" + db + "?" + "user=" + user + "&" + "password=" + password;
     }
 
     public static void setPostgreSQLString(String port, String server, String db, String user, String password) {
