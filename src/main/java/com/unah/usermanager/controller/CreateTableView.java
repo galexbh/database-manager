@@ -55,7 +55,7 @@ public class CreateTableView implements Initializable {
         }
         tableName.setOnMouseClicked((event) -> removeBorder(tableName));
         listSGBD.setOnMouseClicked((event) -> removeBorder(listSGBD));
-        listSGBD.setItems(FXCollections.observableArrayList("MySQL","PostgreSQL"));
+        listSGBD.setItems(FXCollections.observableArrayList("MySQL","PostgreSQL", "MariaDB"));
     }
 
 
@@ -226,7 +226,10 @@ public class CreateTableView implements Initializable {
                 case "PostgreSQL":
                     primaryKey = "Id SERIAL NOT NULL PRIMARY KEY,";
                     dbAdapter = DBFactory.getDBAdapter(DBType.PostgreSQL);
-
+                    break;
+                case "MariaDB":
+                    dbAdapter = DBFactory.getDBAdapter(DBType.MariaDB);
+                    primaryKey = "Id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,";
                     break;
                 default:
                     break;

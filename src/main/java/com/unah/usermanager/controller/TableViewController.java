@@ -47,7 +47,7 @@ public class TableViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         SGBDComboBox.setOnMouseClicked((event) -> removeBorder(SGBDComboBox));
         tableResult.setOnMouseClicked((event) -> removeBorder(tableResult));
-        SGBDComboBox.setItems(FXCollections.observableArrayList("MySQL", "PostgreSQL"));
+        SGBDComboBox.setItems(FXCollections.observableArrayList("MySQL", "PostgreSQL", "MariaDB"));
     }
 
     @FXML
@@ -311,9 +311,11 @@ public class TableViewController implements Initializable {
             case "MySQL":
                 dbAdapter = DBFactory.getDBAdapter(DBType.MySQL);
                 break;
-
             case "PostgreSQL":
                 dbAdapter = DBFactory.getDBAdapter(DBType.PostgreSQL);
+                break;
+            case "MariaDB":
+                dbAdapter = DBFactory.getDBAdapter(DBType.MariaDB);
                 break;
             default:
                 break;

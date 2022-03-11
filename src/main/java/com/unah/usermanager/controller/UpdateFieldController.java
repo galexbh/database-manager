@@ -112,6 +112,9 @@ public class UpdateFieldController implements Initializable {
             case "PostgreSQL":
                 dbAdapter = DBFactory.getDBAdapter(DBType.PostgreSQL);
                 break;
+            case "MariaDB":
+                dbAdapter = DBFactory.getDBAdapter(DBType.MariaDB);
+                break;
             default:
                 break;
         }

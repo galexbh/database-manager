@@ -13,5 +13,6 @@ services:
           - data-us:/var/lib/postgresql/data
 
 volumes:
-    data-us:
-        driver: local
+  data-us:
+    driver: local
+

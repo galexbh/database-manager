@@ -11,9 +11,10 @@ public class DBUtils {
 
     private static String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/mysqlDB?user=root&password=mauFJcuf5dhRMQrjj";
     private static String POSTGRESQL_CONNECTION = "jdbc:postgresql://localhost:5438/mydb?user=galex&password=mssql1Ipw";
+    private static String MARIADB_CONNECTION = "jdbc:mysql://localhost:3307/mariaDB?user=root&password=mauFJcuf5dhRMQrjj";
 
     public static String MYSQL_DB = "galex_db";
-    private static String MARIADB_CONNECTION = "";
+
     public static String MARIADB_DB = "galex_db";
     public static String POSTGRESQL_DB = "";
 
