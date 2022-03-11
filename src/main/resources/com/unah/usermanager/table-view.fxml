@@ -10,10 +10,13 @@
    <children>
       <Label layoutX="386.0" layoutY="37.0" text="tabla" />
       <TableView fx:id="tableResult" layoutX="14.0" layoutY="78.0" prefHeight="680.0" prefWidth="687.0" />
-      <Button layoutX="774.0" layoutY="157.0" mnemonicParsing="false" onAction="#deleteTable" prefHeight="25.0" prefWidth="141.0" text="Eliminar tabla" />
-      <Button layoutX="800.0" layoutY="188.0" mnemonicParsing="false" text="Eliminar" />
-      <Button layoutX="795.0" layoutY="226.0" mnemonicParsing="false" text="Actualizar" />
+      <Button layoutX="778.0" layoutY="242.0" mnemonicParsing="false" onAction="#deleteTable" prefHeight="25.0" prefWidth="141.0" text="Eliminar tabla" />
+      <Button layoutX="778.0" layoutY="202.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Editar campos de tabla" />
+      <Button layoutX="778.0" layoutY="307.0" mnemonicParsing="false" onAction="#deleteField" prefHeight="25.0" prefWidth="141.0" text="Eliminar registro" />
       <ComboBox fx:id="tablesList" layoutX="746.0" layoutY="111.0" onAction="#readTable" onMouseClicked="#verificSelection" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione la tabla" />
       <ComboBox fx:id="SGBDComboBox" layoutX="746.0" layoutY="66.0" onAction="#getTables" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione la base de datos" />
+      <Button layoutX="778.0" layoutY="350.0" mnemonicParsing="false" onAction="#insertField" prefHeight="25.0" prefWidth="141.0" text="Insertar registro" />
+      <Button layoutX="778.0" layoutY="394.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Editar registro" />
+      <Button layoutX="778.0" layoutY="163.0" mnemonicParsing="false" onAction="#newTable" prefHeight="25.0" prefWidth="141.0" text="Nueva tabla" />
    </children>
 </AnchorPane>
