@@ -8,60 +8,82 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.ConfigController">
-   <HBox alignment="CENTER" layoutX="10.0" layoutY="184.0" prefHeight="73.0" prefWidth="520.0">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.ConfigController">
+   <HBox alignment="CENTER" layoutX="10.0" layoutY="184.0" prefHeight="80.0" prefWidth="540.0">
       <Label contentDisplay="BOTTOM" text="SGBD">
          <HBox.margin>
             <Insets right="60.0" />
          </HBox.margin>
          <graphic>
-            <ComboBox fx:id="cbxDBType" prefHeight="26.0" prefWidth="160.0" />
+            <ComboBox fx:id="cbxDBType" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #f2f7ff;" />
          </graphic>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="13.0" />
+         </font>
       </Label>
       <Label contentDisplay="BOTTOM" text="Server">
          <graphic>
-            <TextField fx:id="txfServer" alignment="CENTER" promptText="localhost" />
+            <TextField fx:id="txfServer" alignment="CENTER" prefHeight="30.0" promptText="localhost" style="-fx-background-color: #f2f7ff;" />
          </graphic>
          <HBox.margin>
             <Insets />
          </HBox.margin>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="13.0" />
+         </font>
       </Label>
       <VBox.margin>
          <Insets top="100.0" />
       </VBox.margin>
    </HBox>
-   <HBox alignment="CENTER" layoutX="50.0" layoutY="110.0" prefHeight="73.0" prefWidth="520.0">
+   <HBox alignment="CENTER" layoutX="50.0" layoutY="110.0" prefHeight="80.0" prefWidth="540.0">
       <Label contentDisplay="BOTTOM" text="Port">
          <HBox.margin>
             <Insets right="60.0" />
          </HBox.margin>
          <graphic>
-            <TextField fx:id="txfPort" alignment="CENTER" promptText="3306" />
+            <TextField fx:id="txfPort" alignment="CENTER" prefHeight="30.0" promptText="3306" style="-fx-background-color: #f2f7ff;" />
          </graphic>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="13.0" />
+         </font>
       </Label>
       <Label contentDisplay="BOTTOM" text="BD">
          <graphic>
-            <TextField fx:id="txfBD" alignment="CENTER" promptText="mydb" />
+            <TextField fx:id="txfBD" alignment="CENTER" prefHeight="30.0" promptText="mydb" style="-fx-background-color: #f2f7ff;" />
          </graphic>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="13.0" />
+         </font>
       </Label>
    </HBox>
-   <HBox alignment="CENTER" layoutX="10.0" layoutY="184.0" prefHeight="73.0" prefWidth="520.0">
+   <HBox alignment="CENTER" layoutX="10.0" layoutY="184.0" prefHeight="80.0" prefWidth="540.0">
       <Label contentDisplay="BOTTOM" text="User">
          <HBox.margin>
             <Insets right="60.0" />
          </HBox.margin>
          <graphic>
-            <TextField fx:id="txfUser" alignment="CENTER" promptText="galex" />
+            <TextField fx:id="txfUser" alignment="CENTER" prefHeight="30.0" promptText="galex" style="-fx-background-color: #f2f7ff;" />
          </graphic>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="13.0" />
+         </font>
       </Label>
       <Label contentDisplay="BOTTOM" text="Password">
          <graphic>
-            <PasswordField fx:id="txfPassword" alignment="CENTER" promptText="********" />
+            <PasswordField fx:id="txfPassword" alignment="CENTER" prefHeight="30.0" promptText="********" style="-fx-background-color: #f2f7ff;" />
          </graphic>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="13.0" />
+         </font>
       </Label>
    </HBox>
-   <HBox alignment="CENTER" layoutX="10.0" layoutY="258.0" prefHeight="73.0" prefWidth="520.0">
-      <Button mnemonicParsing="false" onAction="#onTestConnection" prefHeight="33.0" prefWidth="383.0" text="Test Connection" />
+   <HBox alignment="CENTER" layoutX="10.0" layoutY="258.0" prefHeight="80.0" prefWidth="540.0">
+      <Button mnemonicParsing="false" onAction="#onTestConnection" prefHeight="33.0" prefWidth="383.0" style="-fx-background-color: slateblue; -fx-text-fill: white;;" text="Test Connection" textFill="WHITE">
+         <font>
+            <Font name="JetBrains Mono ExtraBold ExBd I Nerd Font Complete Mono" size="13.0" />
+         </font></Button>
    </HBox>
 </VBox>

@@ -146,12 +146,13 @@ public class ManagementController implements Initializable {
 
             switch (cbxDBType.getValue()) {
                 case MySQL, MariaDB -> fxmlLoader = loadForm("/com/unah/usermanager/privileges-mysql-view.fxml");
-                case PostgreSQL -> fxmlLoader = loadForm("/com/unah/usermanager/test.fxml.fxml");
+                case PostgreSQL -> fxmlLoader = loadForm("/com/unah/usermanager/privileges-pg-view.fxml");
             }
 
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("User Manager");
+            stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.show();
         } catch (NullPointerException e) {

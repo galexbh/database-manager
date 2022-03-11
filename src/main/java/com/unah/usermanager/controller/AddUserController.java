@@ -29,7 +29,7 @@ public class AddUserController {
 
     @FXML
     void onAddUser(ActionEvent event) throws SQLException {
-        DBAdapter dbAdapter = DBFactory.getDBAdapter(DBType.MySQL);
+        DBAdapter dbAdapter = DBFactory.getDBAdapter(dbtype);
         Connection connection = dbAdapter.getConnection();
 
         statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -37,21 +37,20 @@ public class AddUserController {
         String query = createUser(txfUser.getText(), txfPassword.getText());
         isResultSet = statement.execute(query);
 
-        if (isResultSet) {
-            alert.setAlertType(Alert.AlertType.INFORMATION);
-            alert.setContentText("Operation successful");
-            alert.show();
-        }
+        alert.setAlertType(Alert.AlertType.INFORMATION);
+        alert.setContentText("Operation successful");
+        alert.show();
+
 
     }
 
     public String createUser(String user, String password) {
         switch (dbtype) {
             case MySQL, MariaDB: {
-                return "CREATE USER" + user + " IDENTIFIED BY " + password + ";";
+                return "CREATE USER " + user + " IDENTIFIED BY " + password + ";";
             }
             case PostgreSQL: {
-                return "CREATE USER" + user + " WITH " + password + ";";
+                return "CREATE USER " + user + " WITH " + "PASSWORD " + "'" + password + "';";
             }
             default:
                 return null;

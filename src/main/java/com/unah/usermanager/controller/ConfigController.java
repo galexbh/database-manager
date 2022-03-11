@@ -55,7 +55,6 @@ public class ConfigController implements Initializable {
             alert.setContentText("Connection established");
             alert.show();
         }
-
     }
 
     private void dbTypeEmpty(DBType value) {

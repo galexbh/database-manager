@@ -13,7 +13,7 @@ public class DBUtils {
     private static String MARIADB_CONNECTION = "";
     public static String MARIADB_DB = "galex_db";
     public static String POSTGRESQL_DB = "";
-    private static String POSTGRESQL_CONNECTION = "";
+    private static String POSTGRESQL_CONNECTION = "jdbc:postgresql://localhost:5438/prueba?user=galex&password=mssql1Ipw";
 
     public static Connection getConnection(DBType dbType) throws SQLException {
         return switch (dbType) {

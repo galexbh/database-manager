@@ -2,11 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <GridPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.MainController">
     <columnConstraints>
@@ -16,18 +19,74 @@
     <rowConstraints>
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
-    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-      <Button fx:id="btnManagement" layoutX="10.0" layoutY="367.0" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 0 0 20;" text="Management">
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #9381FF;" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <ImageView fitHeight="191.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/deployment.png" />
+         </image>
          <VBox.margin>
-            <Insets bottom="10.0" />
+            <Insets bottom="60.0" top="50.0" />
          </VBox.margin>
+      </ImageView>
+      <Button fx:id="btnTables" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="10.0" layoutY="342.0" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #B8B8FF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);;" text="Tables" textFill="#f8f7ff">
+         <VBox.margin>
+            <Insets bottom="10.0" left="5.0" right="5.0" top="40.0" />
+         </VBox.margin>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/table.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-        <Button fx:id="btnConfig" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 0 0 20;" text="Settings" VBox.vgrow="ALWAYS" />
-      <Button fx:id="btnAbout" layoutX="10.0" layoutY="391.0" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 0 0 20;" text="About" VBox.vgrow="ALWAYS">
+      <Button fx:id="btnManagement" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="10.0" layoutY="367.0" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #B8B8FF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);;" text="Management" textFill="#f8f7ff">
          <VBox.margin>
-            <Insets top="10.0" />
+            <Insets bottom="10.0" left="5.0" right="5.0" />
          </VBox.margin>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+        <Button fx:id="btnConfig" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #B8B8FF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);;" text="Settings" textFill="#f8f7ff" VBox.vgrow="ALWAYS">
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/settings.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <VBox.margin>
+            <Insets bottom="10.0" left="5.0" right="5.0" />
+         </VBox.margin></Button>
+      <Button fx:id="btnAbout" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" layoutX="10.0" layoutY="391.0" mnemonicParsing="false" onAction="#onChangeView" prefHeight="38.0" prefWidth="301.0" style="-fx-background-radius: 20 20 20 20; -fx-background-color: #B8B8FF; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);;" text="About" textFill="#f8f7ff" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="100.0" left="5.0" right="5.0" />
+         </VBox.margin>
+         <font>
+            <Font name="JetBrains Mono Extra Bold Nerd Font Complete" size="14.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/about.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
     </VBox>
-    <StackPane fx:id="spContainer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+    <StackPane fx:id="spContainer" style="-fx-background-color: #F8F7FF;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
 </GridPane>
