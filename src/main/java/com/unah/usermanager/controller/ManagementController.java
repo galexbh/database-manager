@@ -13,9 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,7 +32,9 @@ import java.util.ResourceBundle;
 
 public class ManagementController implements Initializable {
 
+    @FXML
     public HBox hbxContTable;
+
     @FXML
     private ComboBox<DBType> cbxDBType;
 
@@ -60,26 +62,26 @@ public class ManagementController implements Initializable {
     @FXML
     private TableView<userModel> tableUser;
 
-    static Statement statement = null;
-    static ResultSet resultSet = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    FXMLLoader fxmlLoader = null;
 
+    static public DBType dbtype = null;
 
+    Alert alert = new Alert(Alert.AlertType.NONE);
     ObservableList<userModel> userList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cbxDBType.setItems(FXCollections.observableArrayList(DBType.values()));
         cbxDBType.getItems().setAll(DBType.values());
-
     }
 
     public void onGetUsers(ActionEvent actionEvent) {
 
         switch (cbxDBType.getValue()) {
 
-            case MySQL -> getUsersMySQL();
-
-            case MSSQL -> getUsersMSSQL();
+            case MySQL, MariaDB -> getUsersMySQL();
 
             case PostgreSQL -> getUsersPostgreSQL();
 
@@ -128,34 +130,51 @@ public class ManagementController implements Initializable {
             userList = getDataUsersMySQL();
             tableUser.setItems(userList);
         } catch (SQLException e) {
-            e.printStackTrace();
+            DBUtils.processException(e);
         }
+
     }
 
     public void getUsersPostgreSQL() {
 
     }
 
-    public void getUsersMSSQL() {
+    public void onChangePrivileges(ActionEvent actionEvent) throws IOException {
 
-    }
+        try {
+            dbtype = cbxDBType.getValue();
 
-    public void onChangePrivileges(ActionEvent actionEvent) {
+            switch (cbxDBType.getValue()) {
+                case MySQL, MariaDB -> fxmlLoader = loadForm("/com/unah/usermanager/privileges-mysql-view.fxml");
+                case PostgreSQL -> fxmlLoader = loadForm("/com/unah/usermanager/test.fxml.fxml");
+            }
+
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("User Manager");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (NullPointerException e) {
+            DBUtils.processNullException(e);
+        }
     }
 
     public void onAddUser(ActionEvent actionEvent) throws IOException {
+        try {
+            dbtype = cbxDBType.getValue();
 
-        FXMLLoader fxmlLoader = null;
+            switch (cbxDBType.getValue()) {
+                case MySQL, MariaDB, PostgreSQL -> fxmlLoader = loadForm("/com/unah/usermanager/add-user-view.fxml");
+            }
 
-        switch (cbxDBType.getValue()) {
-            case MySQL -> fxmlLoader = loadForm("/com/unah/usermanager/add-user-mysql-view.fxml");
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("User Manager");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (NullPointerException e) {
+            DBUtils.processNullException(e);
         }
-
-        Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setTitle("User Manager");
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 
     private FXMLLoader loadForm(String url) {

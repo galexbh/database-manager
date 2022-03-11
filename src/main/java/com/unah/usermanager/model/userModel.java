@@ -15,6 +15,10 @@ public class userModel {
         Drop_priv = drop_priv;
     }
 
+    public userModel(String user) {
+        User = user;
+    }
+
     public String getUser() {
         return User;
     }

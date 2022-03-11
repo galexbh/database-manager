@@ -5,12 +5,15 @@ import com.unah.usermanager.utils.DBType;
 import com.unah.usermanager.utils.interfaces.DBAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static com.unah.usermanager.controller.ManagementController.dbtype;
 
 public class AddUserController {
     @FXML
@@ -20,8 +23,9 @@ public class AddUserController {
     private TextField txfUser;
 
     static Statement statement = null;
-    static ResultSet resultSet = null;
     boolean isResultSet = false;
+
+    Alert alert = new Alert(Alert.AlertType.NONE);
 
     @FXML
     void onAddUser(ActionEvent event) throws SQLException {
@@ -33,13 +37,25 @@ public class AddUserController {
         String query = createUser(txfUser.getText(), txfPassword.getText());
         isResultSet = statement.execute(query);
 
-        if (isResultSet){
-            System.out.println("Operación realizada");
+        if (isResultSet) {
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("Operation successful");
+            alert.show();
         }
 
     }
 
     public String createUser(String user, String password) {
-        return "CREATE USER" + user + " IDENTIFIED BY " + password + ";";
+        switch (dbtype) {
+            case MySQL, MariaDB: {
+                return "CREATE USER" + user + " IDENTIFIED BY " + password + ";";
+            }
+            case PostgreSQL: {
+                return "CREATE USER" + user + " WITH " + password + ";";
+            }
+            default:
+                return null;
+        }
     }
 }
+

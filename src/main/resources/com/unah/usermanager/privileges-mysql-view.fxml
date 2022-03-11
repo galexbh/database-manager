@@ -21,32 +21,33 @@
          </ListView>
       </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="175.0" prefWidth="179.0">
-         <CheckBox fx:id="chbxSelect" mnemonicParsing="false" onMouseClicked="#onMouseEvent" text="Select_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <CheckBox fx:id="chbxAll" mnemonicParsing="false" onMouseClicked="#onMouseEventAll" text="All" />
+         <CheckBox fx:id="chbxSelect" mnemonicParsing="false" onMouseClicked="#onMouseEventSelect" text="Select_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
          </CheckBox>
-         <CheckBox fx:id="chbxInsert" mnemonicParsing="false" onMouseClicked="#onMouseEvent" text="Insert_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <CheckBox fx:id="chbxInsert" mnemonicParsing="false" onMouseClicked="#onMouseEventInsert" text="Insert_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
          </CheckBox>
-         <CheckBox fx:id="chbxUpdate" mnemonicParsing="false" onMouseClicked="#onMouseEvent" text="Update_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <CheckBox fx:id="chbxUpdate" mnemonicParsing="false" onMouseClicked="#onMouseEventUpdate" text="Update_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
          </CheckBox>
-         <CheckBox fx:id="chbxDelete" mnemonicParsing="false" onMouseClicked="#onMouseEvent" text="Delete_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <CheckBox fx:id="chbxDelete" mnemonicParsing="false" onMouseClicked="#onMouseEventDelete" text="Delete_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
          </CheckBox>
-         <CheckBox fx:id="chbxCreate" mnemonicParsing="false" onMouseClicked="#onMouseEvent" text="Create_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <CheckBox fx:id="chbxCreate" mnemonicParsing="false" onMouseClicked="#onMouseEventCreate" text="Create_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
          </CheckBox>
-         <CheckBox fx:id="chbxDrop" mnemonicParsing="false" onMouseClicked="#onMouseEvent" text="Drop_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <CheckBox fx:id="chbxDrop" mnemonicParsing="false" onMouseClicked="#onMouseEventDrop" text="Drop_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
@@ -57,15 +58,20 @@
       <VBox.margin>
          <Insets top="10.0" />
       </VBox.margin>
-      <ComboBox fx:id="cbxUser" prefWidth="150.0">
+      <ComboBox fx:id="cbxTable" prefHeight="30.0" prefWidth="120.0">
          <HBox.margin>
-            <Insets right="30.0" />
+            <Insets right="20.0" />
+         </HBox.margin>
+      </ComboBox>
+      <ComboBox fx:id="cbxUser" prefHeight="30.0" prefWidth="120.0">
+         <HBox.margin>
+            <Insets right="20.0" />
          </HBox.margin>
       </ComboBox>
       <Button mnemonicParsing="false" onAction="#onGrantPrivileges" prefHeight="35.0" prefWidth="119.0" text="Grant" />
       <Button mnemonicParsing="false" onAction="#onRevokePrivileges" prefHeight="35.0" prefWidth="119.0" text="Revoke">
          <HBox.margin>
-            <Insets left="30.0" />
+            <Insets left="20.0" />
          </HBox.margin>
       </Button>
    </HBox>
