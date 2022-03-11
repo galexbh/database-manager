@@ -8,29 +8,18 @@ import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.*;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ConfigController implements Initializable {
 
     @FXML
-    private Button btnTestConn;
-
-    @FXML
-    private ComboBox<DBType> cbxSGBD;
+    private ComboBox<DBType> cbxDBType;
 
     @FXML
     private TextField txfBD;
-
-    @FXML
-    private TextField txfInstance;
 
     @FXML
     private PasswordField txfPassword;
@@ -44,34 +33,42 @@ public class ConfigController implements Initializable {
     @FXML
     private TextField txfUser;
 
+    Alert alert = new Alert(Alert.AlertType.NONE);
+
     @FXML
     void onTestConnection(ActionEvent event) {
 
-        switch (cbxSGBD.getValue()) {
+        dbTypeEmpty(cbxDBType.getValue());
+
+        switch (cbxDBType.getValue()) {
             case MySQL -> DBUtils.setMySQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
 
-            case MSSQL -> DBUtils.setMSSQLString(txfPort.getText(), txfInstance.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
+            case MariaDB -> DBUtils.setMariaDBSring(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
 
             case PostgreSQL -> DBUtils.setPostgreSQLString(txfPort.getText(), txfServer.getText(), txfBD.getText(), txfUser.getText(), txfPassword.getText());
         }
 
-        DBAdapter dbAdapter = DBFactory.getDBAdapter(cbxSGBD.getValue());
+        DBAdapter dbAdapter = DBFactory.getDBAdapter(cbxDBType.getValue());
 
-        dbAdapter.getConnection();
+        if (dbAdapter.getConnection() != null) {
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setContentText("Connection established");
+            alert.show();
+        }
+    }
 
+    private void dbTypeEmpty(DBType value) {
+        if (value == null){
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Choose a database");
+            alert.show();
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cbxSGBD.setItems(FXCollections.observableArrayList(DBType.values()));
-        cbxSGBD.getItems().setAll(DBType.values());
+        cbxDBType.setItems(FXCollections.observableArrayList(DBType.values()));
+        cbxDBType.getItems().setAll(DBType.values());
     }
 
-    public void onEnableInstance(ActionEvent actionEvent) {
-
-        Object evt = actionEvent.getSource();
-        if (evt.equals(cbxSGBD)) {
-            txfInstance.setDisable(cbxSGBD.getValue() != DBType.MSSQL);
-        }
-    }
 }

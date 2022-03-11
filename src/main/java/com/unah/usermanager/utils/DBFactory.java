@@ -6,8 +6,7 @@ public class DBFactory {
 
     public static DBAdapter getDBAdapter(DBType dbType) {
         return switch (dbType) {
-            case MySQL -> new MySQLAdapter();
-            case MSSQL -> new MSSQLAdapter();
+            case MySQL, MariaDB -> new MySQLAdapter();
             case PostgreSQL -> new PostgreSQLAdapter();
         };
     }

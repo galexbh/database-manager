@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f5efff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.PrivilegesMysqlController">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f5efff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.PrivilegesPGController">
    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
       <VBox.margin>
          <Insets top="40.0" />
@@ -22,57 +22,31 @@
          </ListView>
       </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="175.0" prefWidth="179.0">
-         <CheckBox fx:id="chbxAll" mnemonicParsing="false" onMouseClicked="#onMouseEventAll" text="All">
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font></CheckBox>
+         <CheckBox fx:id="chbxAll" mnemonicParsing="false" onMouseClicked="#onMouseEventAll" text="All" />
          <CheckBox fx:id="chbxSelect" mnemonicParsing="false" onMouseClicked="#onMouseEventSelect" text="Select_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font>
          </CheckBox>
          <CheckBox fx:id="chbxInsert" mnemonicParsing="false" onMouseClicked="#onMouseEventInsert" text="Insert_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font>
          </CheckBox>
          <CheckBox fx:id="chbxUpdate" mnemonicParsing="false" onMouseClicked="#onMouseEventUpdate" text="Update_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font>
          </CheckBox>
          <CheckBox fx:id="chbxDelete" mnemonicParsing="false" onMouseClicked="#onMouseEventDelete" text="Delete_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font>
          </CheckBox>
          <CheckBox fx:id="chbxCreate" mnemonicParsing="false" onMouseClicked="#onMouseEventCreate" text="Create_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="5.0" right="10.0" top="5.0" />
             </VBox.margin>
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font>
-         </CheckBox>
-         <CheckBox fx:id="chbxDrop" mnemonicParsing="false" onMouseClicked="#onMouseEventDrop" text="Drop_priv" textAlignment="CENTER" VBox.vgrow="ALWAYS">
-            <VBox.margin>
-               <Insets bottom="5.0" right="10.0" top="5.0" />
-            </VBox.margin>
-            <font>
-               <Font name="JetBrains Mono Medium Medium Nerd Font Complete Mono" size="13.0" />
-            </font>
          </CheckBox>
       </VBox>
    </HBox>

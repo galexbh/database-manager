@@ -21,9 +21,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import static com.unah.usermanager.controller.ManagementController.dbtype;
-import static com.unah.usermanager.utils.DBType.MySQL;
+import static com.unah.usermanager.utils.DBType.PostgreSQL;
 
-public class PrivilegesMysqlController implements Initializable {
+public class PrivilegesPGController implements Initializable {
 
     public ComboBox<String> cbxTable;
     @FXML
@@ -34,9 +34,6 @@ public class PrivilegesMysqlController implements Initializable {
 
     @FXML
     private CheckBox chbxDelete;
-
-    @FXML
-    private CheckBox chbxDrop;
 
     @FXML
     private CheckBox chbxInsert;
@@ -57,7 +54,7 @@ public class PrivilegesMysqlController implements Initializable {
     Statement statementTable = null;
     ResultSet resultSetUser = null;
     ResultSet resultSetTables = null;
-    DBAdapter dbAdapter = DBFactory.getDBAdapter(MySQL);
+    DBAdapter dbAdapter = DBFactory.getDBAdapter(PostgreSQL);
 
     @FXML
     void onGrantPrivileges(ActionEvent event) {
@@ -88,11 +85,6 @@ public class PrivilegesMysqlController implements Initializable {
     }
 
     @FXML
-    void onMouseEventDrop(MouseEvent event) {
-        selectedEvent(chbxDrop.isSelected(), "DROP");
-    }
-
-    @FXML
     void onMouseEventInsert(MouseEvent event) {
         selectedEvent(chbxInsert.isSelected(), "INSERT");
     }
@@ -116,7 +108,6 @@ public class PrivilegesMysqlController implements Initializable {
         chbxDelete.setSelected(false);
         chbxUpdate.setSelected(false);
         chbxCreate.setSelected(false);
-        chbxDrop.setSelected(false);
     }
 
     private void selectedEvent(boolean checkbox, String permission) {
@@ -143,8 +134,7 @@ public class PrivilegesMysqlController implements Initializable {
             statementUser = connection.createStatement();
 
             switch (dbtype) {
-                case MySQL -> statementUser.execute(query + " ON " + DBUtils.MYSQL_DB + ".* TO " + cbxUser.getValue());
-                case MariaDB -> statementUser.execute(query + " ON " + DBUtils.MARIADB_DB + ".* TO " + cbxUser.getValue());
+                case PostgreSQL -> statementUser.execute(query + " ON " + DBUtils.POSTGRESQL_DB + " TO " + cbxUser.getValue());
             }
 
         } catch (SQLException e) {
@@ -197,14 +187,16 @@ public class PrivilegesMysqlController implements Initializable {
         try {
             statementUser = connection.createStatement();
             statementTable = connection.createStatement();
-            resultSetUser = statementUser.executeQuery("select * from mysql.user");
-            resultSetTables = statementTable.executeQuery("SHOW TABLES");
+            resultSetUser = statementUser.executeQuery("select distinct grantor  from information_schema.table_privileges where table_schema = 'public'");
+            resultSetTables = statementTable.executeQuery("select table_name from information_schema.tables where table_schema = 'public'");
 
             while (resultSetUser.next()) {
-                listUsers.add(resultSetUser.getString("User"));
+                System.out.println(resultSetUser.getString(1));
+                listUsers.add(resultSetUser.getString(1));
             }
 
             while (resultSetTables.next()) {
+                System.out.println(resultSetTables.getString(1));
                 listTables.add(resultSetTables.getString(1));
             }
         } catch (SQLException e) {
