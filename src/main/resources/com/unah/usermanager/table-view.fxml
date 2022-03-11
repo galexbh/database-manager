@@ -8,11 +8,16 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.TableViewController">
    <children>
-      <Label layoutX="386.0" layoutY="37.0" text="tabla" />
+      <Label layoutX="435.0" layoutY="29.0" text="Administración de tablas" />
       <TableView fx:id="tableResult" layoutX="14.0" layoutY="78.0" prefHeight="680.0" prefWidth="687.0" />
-      <Button layoutX="807.0" layoutY="145.0" mnemonicParsing="false" text="Crear" />
-      <Button layoutX="800.0" layoutY="188.0" mnemonicParsing="false" text="Eliminar" />
-      <Button layoutX="795.0" layoutY="226.0" mnemonicParsing="false" text="Actualizar" />
-      <ComboBox layoutX="771.0" layoutY="78.0" prefWidth="150.0" />
+      <Button layoutX="778.0" layoutY="226.0" mnemonicParsing="false" onAction="#deleteTable" prefHeight="25.0" prefWidth="141.0" text="Eliminar tabla" />
+      <Button layoutX="778.0" layoutY="307.0" mnemonicParsing="false" onAction="#deleteField" prefHeight="25.0" prefWidth="141.0" text="Eliminar registro" />
+      <ComboBox fx:id="tablesList" layoutX="746.0" layoutY="111.0" onAction="#readTable" onMouseClicked="#verificSelection" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione la tabla" />
+      <ComboBox fx:id="SGBDComboBox" layoutX="746.0" layoutY="66.0" onAction="#getTables" prefHeight="25.0" prefWidth="196.0" promptText="Seleccione la base de datos" />
+      <Button layoutX="778.0" layoutY="350.0" mnemonicParsing="false" onAction="#insertField" prefHeight="25.0" prefWidth="141.0" text="Insertar registro" />
+      <Button layoutX="778.0" layoutY="394.0" mnemonicParsing="false" onAction="#updateField" prefHeight="25.0" prefWidth="141.0" text="Editar registro" />
+      <Button layoutX="778.0" layoutY="153.0" mnemonicParsing="false" onAction="#newTable" prefHeight="25.0" prefWidth="141.0" text="Nueva tabla" />
+      <Button layoutX="778.0" layoutY="259.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="25.0" prefWidth="141.0" text="Actualizar tabla" />
+      <Button layoutX="778.0" layoutY="190.0" mnemonicParsing="false" onAction="#updateTables" prefHeight="25.0" prefWidth="141.0" text="Actualizar tablas" />
    </children>
 </AnchorPane>

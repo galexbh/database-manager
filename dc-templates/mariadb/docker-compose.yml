@@ -6,12 +6,12 @@ services:
     container_name: MariaDB
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=mariaDB
+      - MYSQL_ROOT_PASSWORD=mauFJcuf5dhRMQrjj
     ports:
-      - 3307:3306
+      - '3307:3306'
     volumes:
-      - data_md:/var/lib/mysql
-
+      - sa:/var/lib/mysql
 volumes:
-    data_md:
-        driver: local
+  sa:
+    driver: local

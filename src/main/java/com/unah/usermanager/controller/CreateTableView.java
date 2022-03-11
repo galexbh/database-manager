@@ -1,22 +1,29 @@
 package com.unah.usermanager.controller;
 
+import com.unah.usermanager.utils.DBFactory;
+import com.unah.usermanager.utils.DBType;
+import com.unah.usermanager.utils.DBUtils;
 import com.unah.usermanager.utils.TableObject;
-import com.unah.usermanager.utils.interfaces.ComboBoxsDataSource;
+import com.unah.usermanager.utils.interfaces.DBAdapter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-public class CreateTableView implements Initializable, ComboBoxsDataSource {
+public class CreateTableView implements Initializable {
 
     @FXML
     private Pane tableParent;
@@ -24,50 +31,39 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
     private TextField tableName;
     @FXML
     private ComboBox listSGBD;
+    @FXML
+    private Button createButton;
+    @FXML
+    private Button cancelButton;
+    Map<String, Boolean> needTamValue = new HashMap<>();
+    ObservableList<String> DataType = FXCollections.observableArrayList( "CHAR","VARCHAR","TEXT","MEDIUMTEXT","BOOLEAN","BIT","INTEGER","FLOAT","DOUBLE","DATE");
 
-    private ObservableList<String> ComboBoxdataTypeList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tableName.setOnMouseClicked((event) -> removeBorder(tableName));
-        listSGBD.setOnMouseClicked((event) -> removeBorder(listSGBD));
-        listSGBD.setItems(FXCollections.observableArrayList("MYSQL", "MSSQL", "POSTGRESQL"));
-    }
-
-    @FXML
-    private void selectSGBD(){
-
-        switch((String) listSGBD.getSelectionModel().getSelectedItem()){
-            case "MYSQL":
-                ComboBoxdataTypeList = mysqlDataType;
-                break;
-            case "MSSQL":
-                ComboBoxdataTypeList = FXCollections.observableArrayList("MSSQLDATO1", "MSSQLDATO2", "MSSQLDATO3");
-                break;
-            case "POSTGRESQL":
-                ComboBoxdataTypeList = FXCollections.observableArrayList("PRODATO1", "PRODATO2", "PROLDATO3");
-                break;
-            default:
-                break;
-        }
-        if (!tableParent.getChildren().isEmpty()){
-            for (Node fieldPane: tableParent.getChildren()){
-                Pane fieldValues = (Pane) fieldPane;
-                for (Node fieldValue:fieldValues.getChildren()){
-                    if (fieldValue.getId() == "dataTypeList"){
-                        ComboBox tempDataTypeList = (ComboBox) fieldValue;
-                        tempDataTypeList.setItems(ComboBoxdataTypeList);
-                        tempDataTypeList.setPromptText("Tipo de dato");
-
-
-                    }
-                }
+        for (String type: DataType){
+            switch (type){
+                case "CHAR", "VARCHAR":
+                    needTamValue.put(type, true);
+                    break;
+                case "TEXT","MEDIUMTEXT","BOOLEAN","BIT","INTEGER","FLOAT","DOUBLE","DATE":
+                    needTamValue.put(type, false);
+                    break;
+                default:
+                    break;
             }
         }
+        tableName.setOnMouseClicked((event) -> removeBorder(tableName));
+        listSGBD.setOnMouseClicked((event) -> removeBorder(listSGBD));
+        listSGBD.setItems(FXCollections.observableArrayList("MySQL","PostgreSQL", "MariaDB"));
     }
+
+
+
     @FXML
     private void addField(){
         if (listSGBD.getSelectionModel().isEmpty()){
-            generateAlert("Debe seleccionar una base de datos para crear registros", listSGBD);
+            generateAlert("Debe seleccionar una base de datos para crear campos", listSGBD);
             return;
         } else {
 
@@ -107,15 +103,17 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
             fieldSize.setOnMouseClicked((event) -> removeBorder(fieldSize));
 
 
+
             ComboBox dataTypeList = new ComboBox();
             dataTypeList.setPrefWidth(150);
             dataTypeList.setPrefHeight(30);
             dataTypeList.setPromptText("Tipo de dato");
             dataTypeList.setLayoutX(fieldSize.getLayoutX() + fieldSize.getPrefWidth() + 20);
             dataTypeList.setId("dataTypeList");
-
-            dataTypeList.setItems(ComboBoxdataTypeList);
+            dataTypeList.setItems(DataType);
             dataTypeList.setOnMouseClicked((event) -> removeBorder(dataTypeList));
+            dataTypeList.setOnAction((event) -> disableButton(dataTypeList, fieldSize));
+
 
 
             paneField.getChildren().add(dataTypeList);
@@ -138,13 +136,21 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
 
     @FXML
     private void createTable(){
+
         if (tableName.getText().isEmpty()){
             generateAlert("La tabla debe tener un nombre", tableName);
-        } else {
+            return;
+        }
+        if (tableParent.getChildren().isEmpty()) {
+            generateAlert("Deben existir elementos para ingresar");
+        }
             ObservableList<TableObject> tableObject = FXCollections.observableArrayList();
             for (Node fieldPane : tableParent.getChildren()) {
                 Pane fieldValues = (Pane) fieldPane;
                 TableObject field = new TableObject();
+
+
+
                 for (Node fieldValue : fieldValues.getChildren()) {
 
                     switch (fieldValue.getId()) {
@@ -153,7 +159,6 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
                             if (!tempTextField.getText().isEmpty()) {
                                 field.setNameField(tempTextField.getText());
                             } else {
-                                //Alerta y return
                                 generateAlert("El nombre de los campos no puede estar vacio", tempTextField);
                                 return;
                             }
@@ -169,10 +174,14 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
                             break;
                         case "fieldSize":
                             TextField tempTampField = (TextField) fieldValue;
-
+                                if (tempTampField.isDisable()){
+                                    field.setTamField(-99);
+                                    continue;
+                                }
                             if (!tempTampField.getText().isEmpty()) {
 
                                 if (tempTampField.getText().matches("[+-]?\\d*(\\.\\d+)?")) {
+
                                     field.setTamField(Integer.parseInt(tempTampField.getText()));
                                 } else {
                                     generateAlert("El tamaño debe estar en numeros", tempTampField);
@@ -191,6 +200,7 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
                                 generateAlert("Debe seleccionar un tipo de dato", tempDataTypeList);
                                 return;
                             } else {
+
                                 field.setTypeField((String) tempDataTypeList.getSelectionModel().getSelectedItem());
 
 
@@ -206,18 +216,57 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
                 tableObject.add(field);
 
             }
-           String sqlSecuence = "CREATE TABLE" + " " + tableName.getText() + "(";
-            String auxComma = ",";
+            String primaryKey = "";
+           DBAdapter dbAdapter = null;
+            switch((String)listSGBD.getSelectionModel().getSelectedItem()){
+                case "MySQL":
+                    primaryKey = "Id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,";
+                    dbAdapter = DBFactory.getDBAdapter(DBType.MySQL);
+                    break;
+                case "PostgreSQL":
+                    primaryKey = "Id SERIAL NOT NULL PRIMARY KEY,";
+                    dbAdapter = DBFactory.getDBAdapter(DBType.PostgreSQL);
+                    break;
+                case "MariaDB":
+                    dbAdapter = DBFactory.getDBAdapter(DBType.MariaDB);
+                    primaryKey = "Id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,";
+                    break;
+                default:
+                    break;
+            }
+
+           String auxComma = ",";
+           String sqlSecuence = "CREATE TABLE" + " " + tableName.getText() + "("  + primaryKey;
+
           for (int i = 0; i < tableObject.size(); i++) {
                 if (i == tableObject.size() - 1){
                     auxComma = "";
                 }
-              sqlSecuence = sqlSecuence + tableObject.get(i).generateField() + auxComma;
-
+              sqlSecuence = sqlSecuence + tableObject.get(i).generateField()  + auxComma;
             }
           sqlSecuence = sqlSecuence + ")";
-          System.out.println(sqlSecuence);
+            Connection connection = dbAdapter.getConnection();
+            Statement statement = null;
+
+
+            try {
+                statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                statement.execute(sqlSecuence);
+
+            } catch (SQLException e) {
+                DBUtils.processException(e);
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    DBUtils.processException(e);
+                }
             }
+
+
+
+        Stage stage = (Stage) createButton.getScene().getWindow();
+        stage.close();
     }
 
     private void generateAlert(String infoAlert, Node nodeChange){
@@ -230,10 +279,30 @@ public class CreateTableView implements Initializable, ComboBoxsDataSource {
 
 
     }
+    private void generateAlert(String infoAlert){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(infoAlert);
+        alert.setTitle("ERROR");
+        alert.show();
+
+
+    }
 
     private void removeBorder(Node nodeChange){
         nodeChange.setStyle("-fx-border-color: none;");
     }
 
+    @FXML
+    private void closeWindow(){
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
+
+    private void disableButton(ComboBox tempComboBox, TextField textField){
+        if (tempComboBox.getSelectionModel().isEmpty()){
+            return;
+        }
+        textField.setDisable(!needTamValue.get(tempComboBox.getSelectionModel().getSelectedItem()));
+    }
 
 }
