@@ -6,15 +6,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.CreateTableView">
+<AnchorPane prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: #f5efff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unah.usermanager.controller.CreateTableView">
    <children>
       <Button layoutX="629.0" layoutY="172.0" mnemonicParsing="false" onAction="#addField" prefHeight="25.0" prefWidth="53.0" text="+" />
       <TextField fx:id="tableName" layoutX="629.0" layoutY="115.0" promptText="Nombre de la tabla" />
       <Button layoutX="725.0" layoutY="172.0" mnemonicParsing="false" onAction="#removeField" prefHeight="25.0" prefWidth="53.0" text="-" />
       <Button fx:id="createButton" layoutX="629.0" layoutY="231.0" mnemonicParsing="false" onAction="#createTable" prefHeight="25.0" prefWidth="149.0" text="Crear" />
       <Button fx:id="cancelButton" layoutX="629.0" layoutY="277.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="25.0" prefWidth="149.0" text="Cancelar" />
-      <Label alignment="CENTER" layoutX="287.0" layoutY="27.0" prefHeight="17.0" prefWidth="287.0" text="Crear tabla" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="257.0" layoutY="6.0" prefHeight="17.0" prefWidth="287.0" text="Create Table" textAlignment="CENTER">
+         <font>
+            <Font name="Verdana Bold" size="37.0" />
+         </font></Label>
       <Pane fx:id="tableParent" layoutX="14.0" layoutY="58.0" prefHeight="679.0" prefWidth="600.0" />
       <ComboBox fx:id="listSGBD" layoutX="629.0" layoutY="58.0" prefHeight="25.0" prefWidth="149.0" />
    </children>
