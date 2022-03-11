@@ -2,37 +2,41 @@ package com.unah.usermanager.controller;
 
 import com.unah.usermanager.utils.DBFactory;
 import com.unah.usermanager.utils.DBType;
-import com.unah.usermanager.utils.TableObject;
 import com.unah.usermanager.utils.interfaces.DBAdapter;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static com.unah.usermanager.controller.TableViewController.*;
 
-public class InsertFieldController implements Initializable {
-
+public class UpdateFieldController implements Initializable {
     @FXML
     private Pane contentPane;
-    @FXML
     private Button closeButton;
     @FXML
-    private Button insertButton;
+    private Button updateButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
         for (int i = 1; i < columnsNames.size(); i++) {
             int tempPositionY = 30;
+
             if (!contentPane.getChildren().isEmpty()){
                 Pane tempPaneField = (Pane) contentPane.getChildren().get(contentPane.getChildren().size() - 1 );
                 tempPositionY += tempPaneField.getLayoutY() + tempPaneField.getPrefHeight();
@@ -60,6 +64,7 @@ public class InsertFieldController implements Initializable {
                 dateField.setPrefWidth(200);
                 dateField.setPrefHeight(30);
                 dateField.setId("dateField");
+                dateField.setValue(LocalDate.parse(selectedField.get(i)));
                 dateField.setLayoutX(campName.getPrefWidth() + 20);
                 tempLayoutX = dateField.getLayoutX();
                 tempPrefWidth = dateField.getPrefWidth();
@@ -72,6 +77,7 @@ public class InsertFieldController implements Initializable {
                 valueField.setPrefHeight(30);
                 valueField.setPromptText("Valor a ingresar");
                 valueField.setId("textField");
+                valueField.setText(selectedField.get(i));
                 valueField.setLayoutX(campName.getPrefWidth() + 20);
                 tempLayoutX = valueField.getLayoutX();
                 tempPrefWidth = valueField.getPrefWidth();
@@ -91,18 +97,12 @@ public class InsertFieldController implements Initializable {
             paneField.getChildren().add(dataType);
             contentPane.getChildren().add(paneField);
         }
-
     }
 
+
+
     @FXML
-    private void date(DatePicker date) {
-        if (date.getValue() == null ) {
-        return;
-        }
-        System.out.println(java.sql.Date.valueOf(date.getValue().toString()));
-    }
-    @FXML
-    private void insertField() {
+    private void updateField(){
         DBAdapter dbAdapter = null;
         switch (dataBase) {
             case "MySQL":
@@ -115,60 +115,44 @@ public class InsertFieldController implements Initializable {
             default:
                 break;
         }
+        String query = "UPDATE " + tableValue + " SET ";
         Connection connection = dbAdapter.getConnection();
         Statement statement = null;
         ResultSet resultSet = null;
-        String query = "INSERT INTO " + tableValue + " ";
-        String fieldNames = "(";
+
         String tempComa = ",";
-
-        for (int i = 1; i < columnsNames.size(); i++) {
-            if (i == (columnsNames.size() - 1)) {
-                tempComa = "";
-            }
-
-            fieldNames = fieldNames + columnsNames.get(i) + tempComa;
-
-        }
-
-
-        fieldNames = fieldNames + ")";
-        query = query + fieldNames + " VALUES (" ;
-
-
-            tempComa = ",";
         String quotation = "";
         for (int i = 0; i < contentPane.getChildren().size(); i++) {
-                Pane fieldValues = (Pane) contentPane.getChildren().get(i);
-                if (i == (contentPane.getChildren().size() -1 )){
-                    tempComa = ")";
+            Pane fieldValues = (Pane) contentPane.getChildren().get(i);
+            if (i == (contentPane.getChildren().size() -1 )){
+                tempComa = "";
+            }
+            for (Node fieldValue : fieldValues.getChildren()) {
+                switch (fieldValue.getId()) {
+                    case "textField":
+                        switch(columnsType.get(i + 1)){
+                            case "CHAR","VARCHAR","TEXT","MEDIUMTEXT":
+                                quotation = "\"";
+
+                                break;
+                            default:
+                                break;
+                        }
+                        TextField tempTextField = (TextField) fieldValue;
+                        query = query + columnsNames.get(i + 1) +  " = " + quotation + tempTextField.getText() + quotation + tempComa;
+                        break;
+                    case "dateField":
+                        DatePicker tempDateField = (DatePicker) fieldValue;
+                        query = query + columnsNames.get(i + 1) +  " = " + "\"" + java.sql.Date.valueOf(tempDateField.getValue().toString()) + "\"" + tempComa;
+                        break;
+                    default:
+                        break;
+
                 }
-                for (Node fieldValue : fieldValues.getChildren()) {
-                    switch (fieldValue.getId()) {
-                        case "textField":
-                            switch(columnsType.get(i + 1)){
-                                case "CHAR","VARCHAR","TEXT","MEDIUMTEXT":
-                                    quotation = "\"";
-
-                                    break;
-                                default:
-                                    break;
-                            }
-                            TextField tempTextField = (TextField) fieldValue;
-                                query = query + quotation + tempTextField.getText() + quotation + tempComa;
-                            break;
-                        case "dateField":
-                            DatePicker tempDateField = (DatePicker) fieldValue;
-                                query = query + "\"" + java.sql.Date.valueOf(tempDateField.getValue().toString()) + "\"" + tempComa;
-                            break;
-                        default:
-                            break;
-
-                    }
-                }
-
             }
 
+        }
+        query = query + " WHERE Id = " + selectedField.get(0);
 
         try {
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -179,14 +163,10 @@ public class InsertFieldController implements Initializable {
         columnsType = FXCollections.observableArrayList();
         columnsNames = FXCollections.observableArrayList();
         tableValue ="";
-
-        Stage stage = (Stage) insertButton.getScene().getWindow();
+        Stage stage = (Stage) updateButton.getScene().getWindow();
         stage.close();
 
     }
-
-
-    @FXML
     private void closeWindow(){
         columnsType = FXCollections.observableArrayList();
         columnsNames = FXCollections.observableArrayList();

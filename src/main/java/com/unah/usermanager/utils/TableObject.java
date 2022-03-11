@@ -7,7 +7,16 @@ public class TableObject {
     private String typeField;
 
     public String generateField(){
-        return nameField + " " + typeField +"(" + String.valueOf(tamField) + ")" + " " + isNull;
+
+       if (tamField==-99){
+           return nameField + " " + typeField +  " " + isNull;
+
+
+       } else {
+           return nameField + " " + typeField + "(" + String.valueOf(tamField) + ")" + " " + isNull;
+       }
+
+
     }
 
     public String getNameField() {

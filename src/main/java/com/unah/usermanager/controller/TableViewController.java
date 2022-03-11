@@ -14,7 +14,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -28,8 +30,10 @@ import java.util.ResourceBundle;
 public class TableViewController implements Initializable {
 
     public static ObservableList<String>  columnsNames = FXCollections.observableArrayList();
+    public static ObservableList<String> selectedField  = FXCollections.observableArrayList();
     public static ObservableList<String>  columnsType = FXCollections.observableArrayList();
     public static String tableValue = "";
+    public static String dataBase = "";
 
     @FXML
     private TableView<ObservableList<Map.Entry<String,String>>> tableResult;
@@ -132,7 +136,10 @@ public class TableViewController implements Initializable {
         Statement statement = null;
         ResultSet resultSet = null;
         ObservableList<String> tablesInDatabase = FXCollections.observableArrayList();
-
+        String query = "SHOW tables";
+        if ((String)SGBDComboBox.getSelectionModel().getSelectedItem() == "PostgreSQL"  ){
+            query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name";
+        }
         try {
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             resultSet = statement.executeQuery("SHOW tables");
@@ -243,6 +250,10 @@ public class TableViewController implements Initializable {
 
     @FXML
     private void insertField(){
+        columnsType = FXCollections.observableArrayList();
+        columnsNames = FXCollections.observableArrayList();
+        tableValue ="";
+        dataBase = "";
         if (tablesList.getSelectionModel().isEmpty()){
             generateAlert("Es necesario seleccionar una tabla", tablesList);
             return;
@@ -270,12 +281,13 @@ public class TableViewController implements Initializable {
                 columnsType.add(resultSet.getMetaData().getColumnTypeName(i + 1));
             }
             tableValue = tableName;
+            dataBase = (String) SGBDComboBox.getSelectionModel().getSelectedItem();
             FXMLLoader fxmlLoader = null;
             fxmlLoader = loadForm("/com/unah/usermanager/insertField-view.fxml");
 
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setTitle("User Manager");
+            stage.setTitle("Inserta campo");
             stage.setScene(new Scene(root));
             stage.show();
 
@@ -322,9 +334,88 @@ public class TableViewController implements Initializable {
             e.printStackTrace();
         }
         Stage stage = new Stage();
-        stage.setTitle("User Manager");
+        stage.setTitle("Crear tabla");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @FXML
+    private void updateField(){
+        columnsType = FXCollections.observableArrayList();
+        columnsNames = FXCollections.observableArrayList();
+        selectedField = FXCollections.observableArrayList();
+        tableValue ="";
+        dataBase = "";
+
+
+        if (tableResult.getItems().isEmpty()){
+            generateAlert("La tabla no tiene elementos para editar");
+            return;
+        }
+        if (tableResult.getSelectionModel().isEmpty()){
+            generateAlert("Debe seleccionar un elemento");
+            return;
+        }
+        ObservableList<Map.Entry<String,String>> columns = tableResult.getSelectionModel().getSelectedItem();
+        for (Map.Entry<String,String> field: columns){
+            selectedField.add(field.getValue());
+        }
+
+        DBAdapter dbAdapter = getDBAdapter();
+        String queryToGet = "SELECT*FROM " + tablesList.getSelectionModel().getSelectedItem() + " WHERE Id =" + selectedField.get(0);
+        String getColumns = "SELECT COLUMN_NAME FROM Information_Schema.Columns WHERE TABLE_NAME = \"" + tablesList.getSelectionModel().getSelectedItem() + "\"" + " ORDER BY ORDINAL_POSITION";
+
+        Connection connection = dbAdapter.getConnection();
+        System.out.println(connection);
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            resultSet = statement.executeQuery(getColumns);
+            while (resultSet.next()) {
+                columnsNames.add((String) resultSet.getObject("COLUMN_NAME"));
+            }
+
+            resultSet = statement.executeQuery(queryToGet);
+            for (int i =0; i < columnsNames.size(); i++) {
+                columnsType.add(resultSet.getMetaData().getColumnTypeName(i + 1));
+            }
+            tableValue = (String) tablesList.getSelectionModel().getSelectedItem();
+            dataBase = (String) SGBDComboBox.getSelectionModel().getSelectedItem();
+            FXMLLoader fxmlLoader = null;
+            fxmlLoader = loadForm("/com/unah/usermanager/updateField-view.fxml");
+
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Editar campo");
+
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    @FXML
+    private void updateTable(){
+        readTable();
+    }
+
+    @FXML
+    private void updateTables(){
+        if (SGBDComboBox.getSelectionModel().isEmpty()) {
+        generateAlert("Debe seleccinar una base de datos", SGBDComboBox);
+        return;
+    }
+
+        getTables();
     }
 
     private FXMLLoader loadForm(String url) {
