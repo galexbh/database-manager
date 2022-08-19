@@ -1,4 +1,4 @@
-# User Manager
+# Database Manager
 
 UNAH (Autonomous University of Honduras). Project for the **Database I** class.
 
